@@ -22,25 +22,34 @@ function navButton()
 function bashMode()
 {    
     $('body').css('background-color', '#323340');
-    
     jQuery(function($, undefined) {
     $('#bashArea').terminal(function(command, term) {
-        if (command !== '') {
-            try {
-                var result = window.eval(command);
-                if (result !== undefined) {
-                    term.echo(new String(result));
+        if (command == 'back') {
+            term.echo('not implemented yet')
+        }else if (command.indexOf('setapp') > -1) {
+            $.ajax({
+                url: '/cgi-bin/getApplicationsList.py',
+                success: function(data){
+                    console.log(data.applications)
+                    app = command.split(' ')[1];
+                    if(data.applications.indexOf(app+'.html') > -1)
+                    {
+                        term.echo('loading application '+ app)
+                        $('#mainView').load('/partials/'+app+'.html');  
+                    }
+                    else{
+                        term.echo('unknown application '+app);
+                    }
                 }
-            } catch(e) {
-                term.error(new String(e));
-            }
+            });
+            
         } else {
-           term.echo('');
+            term.echo('unknown command');
         }
     }, {
         greetings: "This is a simple jquery prompt\nTry some js stuff here\nCould've done my own but I've been lazy...",
         name: 'haiJS',
         height: 350,
         prompt: 'js> '});
-});
+    });
 }

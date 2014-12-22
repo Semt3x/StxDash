@@ -1,18 +1,23 @@
-<h1>Monitoring</h1>
-<a class="btn btn-primary btn-nav" id="homeBtn" app="Home">Home</a>
+<h1><i class="fa fa-pie-chart"></i>Monitoring</h1>
+<a class="btn btn-primary btn-nav" id="homeBtn" app="Home"><i class="fa fa-home"></i></a>
 <div>
     <p>This is a proccessed Value : Hello <span id="liveSpan"></span></p>
-    <a class="btn btn-link" id="getValueBtn">Refresh</a>
+    <input type="text" name="data-send" id="data-send"></input>
+    <a class="btn btn-link" id="getValueBtn"><i class="fa fa-refresh"></i> Refresh</a>
 </div>
 <script>
     reloadModules();
     
     $('#getValueBtn').click(function(){
+        $('#getValueBtn .fa-refresh').toggleClass('fa-spin');
         $.ajax({
             url: '/cgi-bin/fakews.py',
+            data: {value: $('#data-send').val()},
             success: function(data){
                 console.log(data)
-                $('#liveSpan').text(data.message);
+                $('#liveSpan').text(data.value);
+                $('#getValueBtn .fa-refresh').toggleClass('fa-spin');
+                
             }
         });
     });
