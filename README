@@ -1,0 +1,9 @@
+##
+for a quick start,
+Install Python 3+
+cd /path/to/StxDash
+python -m http.server --cgi 1337
+
+Browse to http://localhost:1337
+##
+Enjoy the magnificient webskillz...

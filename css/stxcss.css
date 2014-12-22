@@ -11,12 +11,14 @@
 .btn-home {
     color: white;
     font-size: 1.6em;
+    transition: color 0.2s ease-in-out;
 }
 
 .btn-home:hover {
-    color: white;
+    color: #440066;
     text-decoration: none;
     cursor: pointer;
+    transition: color 0.2s ease-in-out;
 }
 
 .botbar{
