@@ -20,29 +20,64 @@ function navButton()
 }
 
 function bashMode()
-{    
+{
+    commandList = ['back', 'setapp', 'applist', 'help', 'echo', 'bye'];
     $('body').css('background-color', '#323340');
     jQuery(function($, undefined) {
     $('#bashArea').terminal(function(command, term) {
         if (command == 'back') {
             term.echo('not implemented yet')
         }else if (command.indexOf('setapp') > -1) {
+            console.log(command.split(' ').length);
+            if(command.split(' ').length == 2)
+            {
+                $.ajax({
+                    url: '/cgi-bin/getApplicationsList.py',
+                    success: function(data){
+                        app = command.split(' ')[1];
+                        if(data.applications.indexOf(app+'.html') > -1)
+                        {
+                            term.echo('loading application '+ app)
+                            $('#mainView').load('/partials/'+app+'.html');  
+                        }
+                        else{
+                            term.echo('unknown application '+app);
+                        }
+                    }
+                });
+            } else {
+                term.echo('setapp usage : setapp <appname>, applications names can be obtained via "applist" command')
+            }
+            
+        }else if (command.indexOf('applist') > -1) {
+            term.echo('Getting applications list...');
             $.ajax({
                 url: '/cgi-bin/getApplicationsList.py',
                 success: function(data){
                     console.log(data.applications)
-                    app = command.split(' ')[1];
-                    if(data.applications.indexOf(app+'.html') > -1)
+                    for(a in data.applications)
                     {
-                        term.echo('loading application '+ app)
-                        $('#mainView').load('/partials/'+app+'.html');  
-                    }
-                    else{
-                        term.echo('unknown application '+app);
+                        term.echo(data.applications[a].replace('.html', ''));
                     }
                 }
             });
-            
+
+        }else if (command.indexOf('echo') > -1) {
+            term.echo(command.replace('echo ', ''));
+
+        }else if (command.indexOf('bye') > -1) {
+            term.echo('Bye !');
+            setTimeout(function(){
+                $('#mainView').load('/partials/Home.html');
+            },1000);
+
+        }else if (command.indexOf('help') > -1) {
+            term.echo('Here is a list of enable commands...')
+            for(a in commandList)
+            {
+                term.echo(commandList[a]);
+            }
+
         } else {
             term.echo('unknown command');
         }
