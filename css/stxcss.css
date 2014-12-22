@@ -1,0 +1,33 @@
+.topbar{
+    height: 50px;
+    background-color: #9500B3;
+    padding: 8px;
+}
+
+#mainView {
+    padding-bottom: 160px;
+}
+
+.btn-home {
+    color: white;
+    font-size: 1.6em;
+}
+
+.btn-home:hover {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botbar{
+    height: 150px;
+    background-color: #9500B3;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+    color: white;
+    text-align: center;
+    padding: 55px;
+}
