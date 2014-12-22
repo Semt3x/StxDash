@@ -82,7 +82,7 @@ function bashMode()
             term.echo('unknown command');
         }
     }, {
-        greetings: "This is a simple jquery prompt\nTry some js stuff here\nCould've done my own but I've been lazy...",
+        greetings: "This is a simple jquery prompt\nTry some js stuff here\nCould've done my own but I've been lazy...\n\nType 'help' for a list of available commands",
         name: 'haiJS',
         height: 350,
         prompt: 'js> '});
