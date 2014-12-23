@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import sys, json, cgi
+import sys, json, cgi, platform
 data = cgi.FieldStorage()
 received = data.getvalue("value")
-result = {'success':'true','value':received.upper()}
+machine = "{'node':"+platform.node()+", 'system':"+platform.system()+"}"
+result = {'success':'true','value':received.upper(),'platform':machine}
 print ('Content-Type: application/json\n\n')
 print (json.dumps(result))
