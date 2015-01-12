@@ -2,8 +2,16 @@
 for a quick start,
 Install Python 3+
 cd /path/to/StxDash
+
+On Linux :
+nohup python -m http.server --cgi 1337 & (can set the end to > /dev/null, but I like the easy logging)
+These cgi are written on Windows, Remember to use
+dos2unix /path/to/cgi-bin/*
+in order to convert CRLF / secretz characters to the Unix standard.
+
+On Windows :
 python -m http.server --cgi 1337
 
-Browse to http://localhost:1337
+Then browse to http://localhost:1337
 ##
 Enjoy the magnificient webskillz...
