@@ -1,23 +1,32 @@
+var currentApp = {};
 // reset all modules on page load
 function reloadModules()
 {    
-    $('body').css('background-color', '#fff');
-    
-    setNavButtons();
+    $('body').css('background-color', '#fff');    
 }
 
-// unset all buttons then reset them
-function setNavButtons()
-{
-    $('body').off('click', '.btn-nav', navButton);
-    $('body').on('click', '.btn-nav', navButton);
+var routes = {};
+function route (path, templateId) {
+    routes[path] = {templateId: templateId};
 }
-
-// set a navbutton behaviour
-function navButton()
-{
-    $('#mainView').load('/partials/'+$(this).attr('app')+'.html');
+var el = null;
+function router () {
+    // Lazy load view element:
+    el = el || document.getElementById('mainView');
+    // Current route url (getting rid of '#' in hash as well):
+    var url = location.hash.slice(1) || '/';
+    // Get route by url:
+    var route = routes[url];
+    // Do we have both a view and a route?
+    if (el && route.templateId) {
+        // Render route template with John Resig's template engine:
+        $("#mainView").load("/partials/"+route.templateId+".html");
+    }
 }
+// Listen on hash change:
+window.addEventListener('hashchange', router);
+// Listen on page load:
+window.addEventListener('load', router);
 
 function bashMode()
 {
@@ -38,7 +47,7 @@ function bashMode()
                         if(data.applications.indexOf(app+'.html') > -1)
                         {
                             term.echo('loading application '+ app)
-                            $('#mainView').load('/partials/'+app+'.html');  
+                            window.location = "/#/"+app;  
                         }
                         else{
                             term.echo('unknown application '+app);
@@ -68,7 +77,7 @@ function bashMode()
         }else if (command.indexOf('bye') > -1) {
             term.echo('Bye !');
             setTimeout(function(){
-                $('#mainView').load('/partials/Home.html');
+                window.location = "/#/Home";
             },1000);
 
         }else if (command.indexOf('help') > -1) {
@@ -88,3 +97,9 @@ function bashMode()
         prompt: 'js> '});
     });
 }
+
+route('/', 'Home');
+route('/Home', 'Home');
+route('/Monitoring', 'Monitoring');
+route('/Bash', 'Bash');
+route('/Chat', 'Chat');
