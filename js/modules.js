@@ -36,7 +36,7 @@ function bashMode()
     $('#bashArea').terminal(function(command, term) {
         if (command == 'back') {
             term.echo('not implemented yet')
-        }else if (command.indexOf('setapp') > -1) {
+        }else if (command.indexOf('setapp') > -1 || (command.indexOf('go') > -1)) {
             console.log(command.split(' ').length);
             if(command.split(' ').length == 2)
             {
@@ -103,3 +103,4 @@ route('/Home', 'Home');
 route('/Monitoring', 'Monitoring');
 route('/Bash', 'Bash');
 route('/Chat', 'Chat');
+route('/Reminder', 'Reminder');

@@ -1,0 +1,51 @@
+<h1><i class="fa fa-list-ul"></i>Reminder</h1>
+<a class="btn btn-primary btn-nav" id="homeBtn" app="Home" href="#/Home"><i class="fa fa-home"></i></a>
+<div>
+    <p>A quick List / Reminding System</p>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="remindMenu" data-toggle="dropdown" aria-expanded="true">
+            Reminds
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="remindMenu" id="remindList"></ul>
+        <a class="btn"><i class="fa fa-plus"></i></a> 
+    </div>   
+    <table class="table table-hover" id="thoughtsTable">
+        <tr><th id="thoughts">Thoughts</th></tr>
+    </table>
+</div>
+<script>
+    reloadModules();
+    $.ajax({
+        url: '/data/reminds.json',
+        success: function(data){
+            reminds = JSON.parse(data);
+            for(var i in reminds.remindslist)
+            {
+                r = reminds.remindslist[i];
+                o = $('<li role="presentation"><a role="menuitem" tabindex="-1">'+r.name+'</a></li>');
+                $('#remindList').append(o);                
+                $('#remindList a').click(thoughtsSelect);
+            }
+            
+        }
+    });
+    
+    function thoughtsSelect()
+    {
+        $('#thoughtsTable').html('<tr><th id="thoughts">Thoughts</th></tr>');
+        filter = $(this).text();
+        var r = $.map(reminds.remindslist, function(t){
+            return t.name == filter ? t : null;
+        });
+        $('#thoughts').text(filter);
+        for(var j in r[0].reminds)
+        {
+            thoughts = r[0].reminds[j];
+            console.log(thoughts);
+            td = '<tr><td>'+thoughts.content+'</td></tr>'
+            $('#thoughtsTable').append(td);
+            console.log(td);
+        }
+    }
+</script>

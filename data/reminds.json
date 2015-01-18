@@ -1,0 +1,30 @@
+{
+    "remindslist": [
+        {
+            "name": "Gore Animes to watch",
+            "reminds": [
+                {
+                    "id": 0,
+                    "content": "Parasyte"
+                },
+                {
+                    "id": 1,
+                    "content": "Dorohedoro"
+                },
+                {
+                    "id": 2,
+                    "content": "Pupa"
+                }
+            ]
+        },
+        {
+            "name": "Things to add in StxDash",
+            "reminds": [
+                {
+                    "id": 0,
+                    "content": "Add the Chat with Websockets"
+                }
+            ]
+        }
+    ]
+}
