@@ -1,18 +1,56 @@
-<h1><i class="fa fa-list-ul"></i>Reminder</h1>
-<a class="btn btn-primary btn-nav" id="homeBtn" app="Home" href="#/Home"><i class="fa fa-home"></i></a>
+<h1><i class="fa fa-list-ul"></i> Reminder</h1>
 <div>
     <p>A quick List / Reminding System</p>
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="remindMenu" data-toggle="dropdown" aria-expanded="true">
-            Reminds
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="remindMenu" id="remindList"></ul>
-        <a class="btn"><i class="fa fa-plus"></i></a> 
-    </div>   
+    <ul class="nav nav-tabs" id="remindList">
+    </ul>
     <table class="table table-hover" id="thoughtsTable">
         <tr><th id="thoughts">Thoughts</th></tr>
     </table>
+    
+    
+    <div class="modal fade" id="remindsModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add a Reminder</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="reminderName">Reminder Name</label>
+                        <input type="text" class="form-control" id="reminderName" placeholder="Enter a name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addBtn" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="thoughtsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Thought</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="thoughtContent">Thought Content</label>
+                        <input type="text" class="form-control" id="thoughtContent" placeholder="Type Content ...">
+                    </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addTBtn" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 <script>
     reloadModules();
@@ -28,6 +66,9 @@
                 $('#remindList a').click(thoughtsSelect);
             }
             
+            $('#remindList li:first').toggleClass("active");
+            $('#remindList li:first a').trigger("click");   
+            $('#remindList').append($('<li role="presentation"><a data-toggle="modal" data-target="#remindsModal"><i class="fa fa-plus"></i></a></li>'));
         }
     });
     
@@ -38,14 +79,62 @@
         var r = $.map(reminds.remindslist, function(t){
             return t.name == filter ? t : null;
         });
-        $('#thoughts').text(filter);
+        $('#thoughts').html(filter + '<i data-toggle="modal" data-target="#thoughtsModal" class="fa fa-plus pull-right" id="addThoughtBtn"></i>');
         for(var j in r[0].reminds)
         {
             thoughts = r[0].reminds[j];
-            console.log(thoughts);
-            td = '<tr><td>'+thoughts.content+'</td></tr>'
+            td = '<tr><td tid="'+thoughts.id+'">'+thoughts.content+'<i class="fa fa-minus pull-right"></i></td></tr>'
             $('#thoughtsTable').append(td);
-            console.log(td);
         }
+
+        $('#remindList li').removeClass("active");
+        $(this).parent().addClass("active");
+        $('.fa-minus').click(removeThought);
+    }
+    
+    $('#addBtn').click(function(){
+        $.ajax({
+            url: '/cgi-bin/addRemindlist.py',
+            data: {newlist: $('#reminderName').val()},
+            success: function(data){
+                $('#reminderName').val("");
+                               
+                $('#remindList').html("");
+                reminds = data;
+                for(var i in data.remindslist)
+                {
+                    r = data.remindslist[i];
+                    o = $('<li role="presentation"><a role="menuitem" tabindex="-1">'+r.name+'</a></li>');
+                    $('#remindList').append(o);                
+                    $('#remindList a').click(thoughtsSelect);
+                }
+
+                $('#remindList li:last').toggleClass("active");
+                $('#remindList li:last a').trigger("click");  
+                setTimeout(function(){
+                    $('#remindList').append($('<li role="presentation"><a data-toggle="modal" data-target="#remindsModal"><i class="fa fa-plus"></i></a></li>'));
+                },100);
+            }
+        });
+    });
+    
+    $('#addTBtn').click(function(){
+        $.ajax({
+            url: '/cgi-bin/addRemindToList.py',
+            data: {remlist : $('#remindList li.active a').text(), thought: $('#thoughtContent').val()},
+            success: function(data){
+                $('#thoughtContent').val("");
+                reminds = data;
+                $('#thoughtsTable').html('<tr><th id="thoughts">Thoughts</th></tr>');
+                
+                $('#remindList li.active a').trigger("click");                   
+            }
+        });
+    });
+    
+    function removeThought()
+    {
+        $(this).parent().parent().addClass("remanimate");
+        //$('#remindList li.active a').trigger("click");  
     }
 </script>

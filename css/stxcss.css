@@ -2,10 +2,13 @@
     height: 50px;
     background-color: #9500B3;
     padding: 8px;
+    width: 100%;
+    position: fixed;
 }
 
 #mainView {
     padding-bottom: 160px;
+    padding-top: 60px;
 }
 
 .btn-home {
@@ -42,4 +45,13 @@
 .btn-invert:hover {
     background-color: #404045;
     color: white;
+}
+
+.remanimate {
+    -webkit-animation: setremovalcolor 1s;
+    animation: setremovalcolor 1s;
+}
+
+@-webkit-keyframes setremovalcolor {
+    to {background: red;}
 }

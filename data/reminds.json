@@ -4,16 +4,16 @@
             "name": "Gore Animes to watch",
             "reminds": [
                 {
-                    "id": 0,
-                    "content": "Parasyte"
+                    "content": "Parasyte",
+                    "id": 0
                 },
                 {
-                    "id": 1,
-                    "content": "Dorohedoro"
+                    "content": "Dorohedoro",
+                    "id": 1
                 },
                 {
-                    "id": 2,
-                    "content": "Pupa"
+                    "content": "Pupa",
+                    "id": 2
                 }
             ]
         },
@@ -21,8 +21,17 @@
             "name": "Things to add in StxDash",
             "reminds": [
                 {
-                    "id": 0,
-                    "content": "Add the Chat with Websockets"
+                    "content": "Add the Chat with Websockets",
+                    "id": 0
+                }
+            ]
+        },
+        {
+            "name": "efe",
+            "reminds": [
+                {
+                    "content": "test",
+                    "id": 0
                 }
             ]
         }

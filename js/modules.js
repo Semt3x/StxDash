@@ -104,3 +104,4 @@ route('/Monitoring', 'Monitoring');
 route('/Bash', 'Bash');
 route('/Chat', 'Chat');
 route('/Reminder', 'Reminder');
+route('/CheatSheets', 'CheatSheets');
