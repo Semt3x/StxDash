@@ -8,12 +8,37 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     </head>
     <body>
-        <div class="topbar"><a class="btn-nav btn-home" app="Home" href="#/Home">StxDash</a></div>
-        <div id="mainView" class="container">
+        <div class="topbar">
+            <a class="btn-nav btn-home" app="Home" href="#/Home">StxDash</a>
+            <a class="btn btn-invert btn-skin">Ninja</a>
+        </div>
+        <div id="mainView" class="container-fluid transition-opac-fade-in">
         </div>
         <footer class="botbar">I wonder how the Hell did you ended here !</footer>
     </body>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/modules.js"></script>
-    <script>$('#mainView').load('/partials/Home.html')</script>
+    <script>
+        $('#mainView').load('/partials/Home.html');
+        
+        if(typeof(Storage) !== "undefined") {
+            cl = localStorage.getItem("skin");
+            
+            $('.topbar').toggleClass(cl);
+            $('.botbar').toggleClass(cl);
+        }
+        
+        $('.btn-skin').click(function(){
+            $('.topbar').toggleClass("ninja");
+            $('.botbar').toggleClass("ninja");
+            
+            if(typeof(Storage) !== "undefined") {
+                if($('.topbar').hasClass("ninja")){
+                    localStorage.setItem("skin", "ninja");
+                } else {
+                    localStorage.setItem("skin", "standard");                    
+                }
+            }
+        });
+    </script>
 </html>

@@ -4,11 +4,14 @@
     padding: 8px;
     width: 100%;
     position: fixed;
+    z-index: 999;
+    transition: background-color 0.2s ease-in-out;
 }
 
 #mainView {
     padding-bottom: 160px;
     padding-top: 60px;
+    transition: opacity 0.5s ease-in-out;  
 }
 
 .btn-home {
@@ -16,7 +19,6 @@
     font-size: 1.6em;
     transition: color 0.2s ease-in-out;
 }
-
 .btn-home:hover {
     color: #440066;
     text-decoration: none;
@@ -24,8 +26,14 @@
     transition: color 0.2s ease-in-out;
 }
 
+.btn-skin {
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+
 .botbar{
-    height: 150px;
+    height: 8%;
     background-color: #9500B3;
     position:fixed;
     bottom:0px;
@@ -35,6 +43,7 @@
     color: white;
     text-align: center;
     padding: 55px;
+    z-index: 999;
 }
 
 .btn-invert {
@@ -54,4 +63,35 @@
 
 @-webkit-keyframes setremovalcolor {
     to {background: red;}
+}
+
+.ninja {
+    background-color: #222222;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tile {
+    background-color: #BFE2FF;
+    height:250px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tile:hover {
+    background-color: #222222;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tilecontent{
+    width:100%;
+    height:100%;
+}
+
+.transition-opac-fade-in {
+    opacity: 1;  
+}
+
+.transition-opac-fade-out {
+    opacity: 0;
 }
