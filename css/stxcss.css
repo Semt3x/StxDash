@@ -44,6 +44,8 @@
     text-align: center;
     padding: 55px;
     z-index: 999;
+    transition: background-color 0.2s ease-in-out;
+    -webkit-transition: translate 3s ease-in-out;
 }
 
 .btn-invert {
