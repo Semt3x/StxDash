@@ -10,17 +10,17 @@
 
 #mainView {
     padding-bottom: 160px;
-    padding-top: 60px;
+    padding-top: 45px;
     transition: opacity 0.5s ease-in-out;  
 }
 
 .btn-home {
-    color: white;
+    color: #aaa;
     font-size: 1.6em;
     transition: color 0.2s ease-in-out;
 }
 .btn-home:hover {
-    color: #440066;
+    color: #fff;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -33,7 +33,7 @@
 
 
 .botbar{
-    height: 8%;
+    height: 40px;
     background-color: #9500B3;
     position:fixed;
     bottom:0px;
@@ -42,7 +42,7 @@
     margin-bottom:0px;
     color: white;
     text-align: center;
-    padding: 55px;
+    padding: 10px;
     z-index: 999;
     transition: background-color 0.2s ease-in-out;
     -webkit-transition: translate 3s ease-in-out;
@@ -54,7 +54,7 @@
 }
 
 .btn-invert:hover {
-    background-color: #404045;
+    background-color: #555;
     color: white;
 }
 
@@ -73,15 +73,17 @@
 }
 
 .tile {
-    background-color: #BFE2FF;
+    background-color: #323340;
     height:250px;
     padding: 15px;
     margin-bottom: 15px;
     transition: background-color 0.2s ease-in-out;
+    font-size: 50px;
+    color: white;
 }
 
 .tile:hover {
-    background-color: #222222;
+    background-color: #555;
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -96,4 +98,12 @@
 
 .transition-opac-fade-out {
     opacity: 0;
+}
+
+.cheattile{
+    background-image: url(/ressources/avat.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    
 }
